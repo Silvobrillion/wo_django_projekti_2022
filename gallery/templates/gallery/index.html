@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load thumbnail %}
+{% block content %}
+<div class="col-md-12">
+    <h1>My Gallery</h1>
+    <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+    href="{% url 'gallery:image_upload' %}" role="button">Upload more images</a>
+    <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+    href="{% url 'gallery:create_album' %}" role="button">Create album</a>
+</div>
+{% for album in albums %}
+<div class="card mb-3" style="max-width: 95rem;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        {% if album.post_set.first.image %}
+        {% thumbnail album.post_set.first.image "235x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ im.description }}">
+        {% empty %}
+            <p>No image</p>
+        {% endthumbnail %}
+        {% else %}
+        <img src="{% static 'cover.jpg' %}" class="img-fluid rounded-start" 
+        alt="Album cover" style="width:235px; height:200px;">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ album.name }} album</h5>
+          {% if album.public %} 
+          <h6>(public)</h6>
+          {% else%}
+          <h6>(private)</h6>
+          {% endif %}
+          <p class="card-text">{{ album.description }}</p>
+          <a href="{% url 'gallery:album' album.id %}" class="btn btn-primary">View</a>
+          <a href="{% url 'gallery:delete_album' album.id %}" class="btn btn-primary">Delete</a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

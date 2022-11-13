@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-5 text-center bg-image">
+    <div class="mask">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-dark">
+          <h1 class="mb-3">Welcome to Gallery Schmallery service</h1>
+          {% if user.is_authenticated %}
+          <h5 class="mb-4">You are logged in as {{ user.username }}</h5>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'gallery:public' %}" role="button">Public pictures</a>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'gallery:display_albums' %}" role="button">My gallery</a>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'gallery:image_upload' %}" role="button">Upload picture</a>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'gallery:create_album' %}" role="button">Create album</a>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'logout' %}" role="button">Logout</a>
+          {% else %}          
+          <h5 class="mb-4">Please login or register to use this site</h5>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'login' %}" role="button">Login</a>
+          <a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+          href="{% url 'signup' %}" role="button">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

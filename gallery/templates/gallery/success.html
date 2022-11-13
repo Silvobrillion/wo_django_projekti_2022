@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Thank you. Your actions have been successful.</h3>
+<a class="btn btn-outline-light btn-lg m-2 btn-primary" href="{% url 'gallery:image_upload' %}" 
+role="button">Upload more images</a>
+<a class="btn btn-outline-light btn-lg m-2 btn-primary" href="{% url 'gallery:display_albums' %}" 
+role="button">Go back to My gallery</a>
+{% endblock %}

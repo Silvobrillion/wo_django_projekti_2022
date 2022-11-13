@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block content %}
+<div class="col-md-12">
+    <h1>{{ album.name }} album</h1>
+    {% if album.public %} 
+        {% if album.owner == user %}
+        <h3>(public)</h3>
+        <a class="btn btn-outline-light btn-lg m-2 btn-primary" href="{% url 'gallery:image_upload' %}" 
+        role="button">Upload more images</a>
+        {% else%}
+        <h3>(public)</h3>
+        {% endif %}
+    {% else %}
+    <h3>(private)</h3>
+    <a class="btn btn-outline-light btn-lg m-2 btn-primary" href="{% url 'gallery:image_upload' %}" 
+    role="button">Upload more images</a>
+    {% endif %}
+</div>
+<div class='row row-cols-1 row-cols-md-4 g-4'>
+{% for post in posts %}
+<div class="col">
+    <div class="card text-center" style="width: 18rem;">
+        {% thumbnail post.image "287x200" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ im.description }}">
+        {% empty %}
+            <p>No image</p>
+        {% endthumbnail %}
+        <div class="card-body">
+        <h5 class="card-title">{{ post.description }}</h5>
+        <a href="{{ post.image.url }}" class="btn btn-primary">View</a>
+        {% if album.owner == user %}
+        <a href="{% url 'gallery:delete_image' post.id %}" class="btn btn-primary">Delete</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

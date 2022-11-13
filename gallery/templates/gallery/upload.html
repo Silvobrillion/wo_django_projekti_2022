@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Image Upload</h1>
+{% if request.user.is_authenticated == False %}
+<i>Please log in first otherwise form will not work</i>
+{% endif %}
+<form method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-light btn-lg m-2 btn-primary">Upload</button>
+</form>
+<a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+href="{% url 'gallery:display_albums' %}" role="button">Go to gallery</a>
+{% endblock %}

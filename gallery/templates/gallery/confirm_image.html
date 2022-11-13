@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Are you sure that you want to delete this image?</h3>
+<form action="{% url 'gallery:delete_image' image.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-light btn-lg m-2 btn-primary">Yes, delete</button>
+</form>
+<a class="btn btn-outline-light btn-lg m-2 btn-primary" href="{% url 'gallery:display_albums' %}" 
+role="button">Cancel</a>
+{% endblock %}

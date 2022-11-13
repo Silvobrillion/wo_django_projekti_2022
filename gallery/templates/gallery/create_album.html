@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Create new album</h1>
+{% if request.user.is_authenticated%}
+<form method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-outline-light btn-lg m-2 btn-primary" type="submit">Create</button>
+</form>
+<a class="btn btn-outline-light btn-lg m-2 btn-primary" 
+href="{% url 'gallery:display_albums' %}">Go to gallery</a>
+{% else %}
+<i>Please log in first otherwise form will not work</i>
+{% endif %}
+{% endblock %}
